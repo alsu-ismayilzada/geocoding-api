@@ -13,7 +13,7 @@ public class MapServiceImpl implements MapService {
     private final LocationDao locationDao = new LocationDaoImpl();
 
     @Override
-    public String findLocationJsonAsStringByParam(String q){
+    public String searchLocationJsonAsStringByParam(String q){
         String jsonResponse = nominatimService.searchDataByParam(q);
         insertForAuditing(jsonResponse);
         return jsonResponse;
@@ -34,11 +34,12 @@ public class MapServiceImpl implements MapService {
     }
 
     private void insertLocation(JSONObject locationJson){
+        double placeId = locationJson.getDouble("place_id");
         double lon = locationJson.getDouble("lon");
         double lat = locationJson.getDouble("lat");
         String name = locationJson.optString("name", "");
         String displayName = locationJson.getString("display_name");
-        locationDao.insert(lon, lat, name, displayName);
+        locationDao.insert(placeId, lon, lat, name, displayName);
     }
 
     private JSONObject convertJsonStringToJsonObject(String jsonString){

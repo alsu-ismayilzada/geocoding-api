@@ -43,6 +43,7 @@ public class DatabaseConfiguration {
     private static void createTableIfNotExists() {
         String sql = "CREATE TABLE IF NOT EXISTS public.locations (" +
                 "id IDENTITY PRIMARY KEY, " +
+                "place_id DOUBLE," +
                 "lon DOUBLE, " +
                 "lat DOUBLE, " +
                 "name VARCHAR(255), " +

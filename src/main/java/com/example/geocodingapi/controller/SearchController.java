@@ -21,7 +21,7 @@ public class SearchController extends HttpServlet {
         String queryParam = getQueryParam(request, response);
 
         try {
-            String jsonResponse = mapService.findLocationJsonAsStringByParam(queryParam);
+            String jsonResponse = mapService.searchLocationJsonAsStringByParam(queryParam);
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -34,7 +34,8 @@ public class SearchController extends HttpServlet {
     private String getQueryParam(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String queryParam = request.getParameter("q");
 
-        if (queryParam == null || queryParam.trim().isEmpty()) {
+        boolean isNotValid = queryParam == null || queryParam.trim().isEmpty();
+        if (isNotValid) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parameter 'q' is required.");
             throw new RuntimeException();
         }

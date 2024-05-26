@@ -20,7 +20,8 @@ public class ReverseController extends HttpServlet {
         String latParam = request.getParameter("lat");
         String lonParam = request.getParameter("lon");
 
-        if ((latParam == null || latParam.trim().isEmpty()) && (lonParam == null || lonParam.trim().isEmpty())) {
+        boolean isNotValid = (latParam == null || latParam.trim().isEmpty()) && (lonParam == null || lonParam.trim().isEmpty());
+        if (isNotValid) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parameter 'lat' or 'lon' is required.");
             return;
         }

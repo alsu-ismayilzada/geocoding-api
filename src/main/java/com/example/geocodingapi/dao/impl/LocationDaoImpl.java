@@ -10,15 +10,16 @@ import java.sql.SQLException;
 public class LocationDaoImpl implements LocationDao {
 
     @Override
-    public void insert(double lon, double lat, String name, String displayName){
-        String sql = "INSERT INTO public.locations (lon, lat, name, display_name) VALUES (?, ?, ?, ?)";
+    public void insert(double placeId, double lon, double lat, String name, String displayName){
+        String sql = "INSERT INTO public.locations (place_id, lon, lat, name, display_name) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConfiguration.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setDouble(1, lon);
-            pstmt.setDouble(2, lat);
-            pstmt.setString(3, name);
-            pstmt.setString(4, displayName);
+            pstmt.setDouble(1, placeId);
+            pstmt.setDouble(2, lon);
+            pstmt.setDouble(3, lat);
+            pstmt.setString(4, name);
+            pstmt.setString(5, displayName);
             pstmt.executeUpdate();
             conn.commit();
         } catch (SQLException e) {
